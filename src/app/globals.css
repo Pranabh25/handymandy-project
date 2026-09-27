@@ -1,26 +1,161 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * LushAura design tokens.
+ * Warm ivory surfaces, deep charcoal ink, muted terracotta-rose accent.
+ * Light theme only by design (brand direction avoids dark-only themes).
+ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+  --font-display: var(--font-display);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand-specific tokens */
+  --color-ivory: var(--ivory);
+  --color-sand: var(--sand);
+  --color-charcoal: var(--charcoal);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-soft: var(--terracotta-soft);
+  --color-rose: var(--rose);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-gold: var(--gold);
+
+  --color-chart-1: var(--terracotta);
+  --color-chart-2: var(--charcoal);
+  --color-chart-3: var(--sage);
+  --color-chart-4: var(--gold);
+  --color-chart-5: var(--rose);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --shadow-soft: 0 1px 2px rgb(42 38 35 / 0.04), 0 4px 16px rgb(42 38 35 / 0.05);
+  --shadow-lift: 0 2px 4px rgb(42 38 35 / 0.05), 0 12px 32px rgb(42 38 35 / 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --ivory: #faf6f0;
+  --sand: #efe6da;
+  --charcoal: #2a2623;
+  --terracotta: #a85d45;
+  --terracotta-soft: #f4e4da;
+  --rose: #c98b7f;
+  --sage: #5f7a5c;
+  --sage-soft: #e5ece2;
+  --gold: #b08a4a;
+
+  --background: #faf6f0;
+  --foreground: #2a2623;
+  --card: #fffdf9;
+  --card-foreground: #2a2623;
+  --popover: #fffdf9;
+  --popover-foreground: #2a2623;
+  --primary: #2a2623;
+  --primary-foreground: #faf6f0;
+  --secondary: #efe6da;
+  --secondary-foreground: #2a2623;
+  --muted: #f3ede4;
+  --muted-foreground: #6f665e;
+  --accent: #f4e4da;
+  --accent-foreground: #7d3f2c;
+  --destructive: #b3261e;
+  --border: #e6ddd1;
+  --input: #ddd2c4;
+  --ring: #a85d45;
+  --radius: 0.75rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "kern", "liga";
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+  ::selection {
+    background: var(--terracotta-soft);
+    color: var(--charcoal);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  .eyebrow {
+    @apply text-[0.7rem] font-semibold tracking-[0.18em] text-terracotta uppercase;
+  }
+  .prose-legal h2 {
+    @apply mt-10 mb-3 text-2xl font-semibold;
+  }
+  .prose-legal h3 {
+    @apply mt-6 mb-2 text-lg font-semibold;
+  }
+  .prose-legal p,
+  .prose-legal li {
+    @apply leading-7 text-muted-foreground;
+  }
+  .prose-legal ul {
+    @apply my-3 list-disc space-y-1 pl-5;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
 }
